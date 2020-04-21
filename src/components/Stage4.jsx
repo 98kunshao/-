@@ -2,10 +2,10 @@ import React from 'react';
 import { createForm } from 'rc-form';
 import { district } from 'antd-mobile-demo-data';
 
-import { Picker, DatePicker, List, Checkbox, InputItem } from 'antd-mobile';
+import { Picker, DatePicker, List, Checkbox, InputItem, Button, WhiteSpace } from 'antd-mobile';
 import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
+// import { observer, inject } from 'mobx-react'
 
-const CheckboxItem = Checkbox.CheckboxItem;
 
 // 如果不是使用 List.Item 作为 children
 const CustomChildren = (props) => {
@@ -20,6 +20,8 @@ const CustomChildren = (props) => {
   );
 };
 
+// @inject('temperatureCheckStore')
+
 class Demo extends React.Component {
   constructor(props) {
     super(props);
@@ -31,18 +33,17 @@ class Demo extends React.Component {
     };
   }
   componentDidMount() {
-    this.props.changeTitle('Stage 3');
+    this.props.changeTitle('预约拜访');
   }
   render() {
     const { getFieldProps } = this.props.form;
     const { pickerValue, dpValue } = this.state;
-    return (<form className="form" onsubmit="return false">
-      <List renderHeader={() => <b>表单项</b>}>
-        <InputItem />
-        <InputItem type="number" />
-        <InputItem pattern="[0-9]*" required />
-        <InputItem type="submit" value="submit" />
-        <CheckboxItem onChange={(e) => console.log('checkbox', e)}>
+    return (<form className="form" onsubmit="return false" style={{paddingTop: '50px'}}>
+      <List>
+        <InputItem type="number" placeholder="请输入到访公司"/>
+        <InputItem placeholder="请输入接待人姓名"/>
+        <InputItem placeholder="请输入到访是由"/>
+        {/* <CheckboxItem onChange={(e) => console.log('checkbox', e)}>
           CheckboxItem
         </CheckboxItem>
         <Picker extra="请选择(可选)" data={district} title="选择地区" {...getFieldProps('district', {
@@ -50,8 +51,8 @@ class Demo extends React.Component {
         })}
         >
           <List.Item arrow="horizontal">省市区选择</List.Item>
-        </Picker>
-        <DatePicker
+        </Picker> */}
+        {/* <DatePicker
           mode="date"
           title="选择日期"
           extra="可选,小于结束日期"
@@ -60,14 +61,17 @@ class Demo extends React.Component {
           maxDate={new Date(2017, 12, 3)}
         >
           <List.Item arrow="horizontal">日期</List.Item>
-        </DatePicker>
+        </DatePicker> */}
       </List>
-      <Picker data={district} title="选择地区" extra="请选择(可选)" value={pickerValue} onChange={(v) => this.setState({ pickerValue: v })}>
+      <div style={{width:'80%', padding:'auto',margin:'40px auto'}}>
+        <Button  type="primary">提交</Button><WhiteSpace />
+        </div>
+      {/* <Picker data={district} title="选择地区" extra="请选择(可选)" value={pickerValue} onChange={(v) => this.setState({ pickerValue: v })}>
         <CustomChildren>省市区选择</CustomChildren>
       </Picker>
       <DatePicker mode="date" title="选择日期" extra="请选择(可选)" value={dpValue} onChange={(v) => this.setState({ dpValue: v })}>
         <CustomChildren>时间选择</CustomChildren>
-      </DatePicker>
+      </DatePicker> */}
     </form>);
   }
 }
